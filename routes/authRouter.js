@@ -9,7 +9,6 @@ const apiLimiter = rateLimiter({
     windowMs: 15 * 60 * 1000,
     max: 15,
     message: { msg: 'You have exceeded the number of requests, retry after some time!' },
-    headers: true,
 });
 
 router.post('/register', apiLimiter, validateRegisterInput, register);
