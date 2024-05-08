@@ -10,7 +10,7 @@ export default function PageBtnContainer() {
     
     const navigate = useNavigate();
     const { search, pathname } = useLocation();
-    console.log(search, pathname)
+    // console.log(search, pathname)
 
     const handlePageChange = (pageNumber) => {
         const searchParams = new URLSearchParams(search);

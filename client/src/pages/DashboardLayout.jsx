@@ -1,6 +1,6 @@
-import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom"
+import { Outlet, redirect, useLoaderData, useNavigate, useNavigation } from "react-router-dom"
 import CSSWrapper from '../assets/wrappers/Dashboard';
-import { BigSidebar, Navbar, SmallSidebar } from "../components";
+import { BigSidebar, Navbar, SmallSidebar, Loading } from "../components";
 import { useState, createContext, useContext } from "react";
 import { checkDefaultTheme } from "../App";
 import { customFetch } from "../utils/customFetch.js";
@@ -22,13 +22,13 @@ const DashboardContext = createContext();
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const data  = useLoaderData();
-// console.log(data)
-  // temp
+  const navigation = useNavigation();
   const user = data.user;
 
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
-
+  
+  
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
     setIsDarkTheme(newDarkTheme);
@@ -47,6 +47,7 @@ export default function DashboardLayout() {
     navigate('/');
   };
 
+  const isLoading = navigation.state === 'loading';
   return (
     <DashboardContext.Provider value={{ user, showSidebar, isDarkTheme, toggleDarkTheme, toggleSidebar, logoutUser }}
     >
@@ -58,7 +59,7 @@ export default function DashboardLayout() {
             <Navbar />
             <div className="dashboard-page">
               {/* we can pass context values in outlet in react-router-dom */}
-              <Outlet context={{user}}/> 
+              {isLoading ? <Loading/> : <Outlet context={{user}}/> }
             </div>
           </div>
         </main>

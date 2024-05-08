@@ -31,11 +31,14 @@ export const updateUser = async (req, res) => {
     if(req.file){
         const file = formatImage(req.file);
         // console.log(file)
-        const response = await cloudinary.v2.uploader.upload(req.file);
+        const response = await cloudinary.v2.uploader.upload(file);
         // await fs.unlink(req.file.path);
         newUser.avatar = response.secure_url;
         newUser.avatarPublicId = response.public_id;
     }
+
+    const userFound = await User.findById(req.user.userId);
+    if(userFound.role === 'admin') newUser.role = 'admin';
 
     const user = await User.findByIdAndUpdate(req.user.userId, newUser);
 

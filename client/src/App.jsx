@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { HomeLayout, DashboardLayout, Landing, Register, Login, Error, AllJobs, Admin, Stats, AddJob, Profile, EditJob } from './pages/index';
 import { action as registerAction } from './pages/Register.jsx';
@@ -11,8 +13,7 @@ import { action as deleteJobAction } from './pages/DeleteJob.jsx';
 import { loader as adminLoader } from './pages/Admin.jsx';
 import { action as profileAction } from './pages/Profile.jsx';
 import { loader as statsLoader } from './pages/Stats.jsx';
-
-
+import ErrorElement from './components/ErrorElement.jsx';
 
 export const checkDefaultTheme = () => {
   const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
         path: 'register',
         element: <Register />,
         action: registerAction
-        
+
       },
       {
         path: 'login',
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: <DashboardLayout/>,
+        element: <DashboardLayout />,
         loader: dashboardLoader,
         children: [{
           index: true,
@@ -54,7 +55,8 @@ const router = createBrowserRouter([
         {
           path: 'stats',
           element: <Stats />,
-          loader: statsLoader
+          loader: statsLoader,
+          errorElement: <ErrorElement/>
         },
         {
           path: 'all-jobs',
@@ -87,9 +89,22 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      queries: {
+        staleTime: 1000 * 10 ,
+      }
+    }
+  }
+
+});
 
 export default function App() {
   return (
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   )
 }

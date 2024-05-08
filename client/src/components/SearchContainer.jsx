@@ -21,7 +21,7 @@ export default function SearchContainer() {
       timeoutID = setTimeout(()=>{
         onChange(form);
       }, 1000);
-      console.log("form");
+      // console.log("form");
     }
   }
 
