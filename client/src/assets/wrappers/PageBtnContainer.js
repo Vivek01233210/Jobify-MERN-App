@@ -5,11 +5,12 @@ const Wrapper = styled.section`
   margin-top: 2rem;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
+  text-align: center;
   .btn-container {
-    background: var(--background-secondary-color);
+    /* background: var(--background-secondary-color); */
     border-radius: var(--border-radius);
     display: flex;
   }
@@ -22,7 +23,7 @@ const Wrapper = styled.section`
     font-size: 1.25rem;
     color: var(--primary-500);
     border-radius: var(--border-radius);
-    cursor:pointer:
+    cursor:pointer;
   }
   .active{
     background:var(--primary-500);

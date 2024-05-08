@@ -10,7 +10,7 @@ export const getAllJobs = async (req, res) => {
     const {search, jobStatus, jobType, sort,page} = req.query;
 
     const queryObject = {
-        createdBy: req.user.userId,
+        // createdBy: req.user.userId,
     }
 
     if(search){

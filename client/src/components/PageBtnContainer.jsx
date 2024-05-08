@@ -6,7 +6,7 @@ import { useAllJobsContext } from '../pages/AllJobs';
 
 export default function PageBtnContainer() {
     const { data: { numOfPages, currentPage } } = useAllJobsContext();
-    const pages = Array.from({ length: numOfPages }, (_, i) => i + 1);
+    // const pages = Array.from({ length: numOfPages }, (_, i) => i + 1);
     
     const navigate = useNavigate();
     const { search, pathname } = useLocation();
@@ -34,7 +34,7 @@ export default function PageBtnContainer() {
             </button>
 
             <div className='btn-container'>
-                {pages.map((pageNumber) => (
+                {/* {pages.map((pageNumber) => (
                     <button
                         className={`page-btn btn ${pageNumber === currentPage && 'active'}`}
                         key={pageNumber}
@@ -44,7 +44,8 @@ export default function PageBtnContainer() {
                     </button>
                 ))
 
-                }
+                } */}
+                Page {currentPage} of {numOfPages}
             </div>
 
             <button
