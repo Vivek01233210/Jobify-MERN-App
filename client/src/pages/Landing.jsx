@@ -15,11 +15,9 @@ export default function Landing() {
           <h1>
             job <span>tracking</span> app
           </h1>
+          <p>"Stay on Track, Land Your Dream Job!"</p>
           <p>
-            I&apos;m baby wayfarers hoodie next level taiyaki brooklyn cliche blue
-            bottle single-origin coffee chia. Aesthetic post-ironic venmo,
-            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
-            narwhal.
+            Job Tracker Pro is your ultimate companion in the journey to securing your dream job. From creating personalized job lists to scheduling interviews and following up on applications, Job Tracker Pro ensures no opportunity slips through the cracks. Start streamlining your path to professional success today!
           </p>
           <Link to='/register' className='btn register-link'>
             Register

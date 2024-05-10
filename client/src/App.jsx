@@ -48,9 +48,6 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         loader: dashboardLoader,
         children: [{
-          // index: true,
-          // element: <AddJob />,
-          // action: addJobAction
           index: true,
           element: <AllJobs />,
           loader: allJobsLoader
@@ -59,12 +56,9 @@ const router = createBrowserRouter([
           path: 'stats',
           element: <Stats />,
           loader: statsLoader,
-          errorElement: <ErrorElement/>
+          errorElement: <ErrorElement />
         },
         {
-          // path: 'all-jobs',
-          // element: <AllJobs />,
-          // loader: allJobsLoader
           path: 'add-jobs',
           element: <AddJob />,
           action: addJobAction
@@ -99,7 +93,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       queries: {
-        staleTime: 1000 * 10 ,
+        staleTime: 1000 * 10,
       }
     }
   }
