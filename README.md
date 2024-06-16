@@ -22,4 +22,4 @@ Jobify is a web application built using the MERN stack (MongoDB, Express.js, Rea
 - File Uploads: Multer(For profile Picture)
 
 # Author
-- Name: Vivek
+- Name: Vivek Kumar
