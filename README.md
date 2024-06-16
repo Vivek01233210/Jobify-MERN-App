@@ -9,6 +9,7 @@ Jobify is a web application built using the MERN stack (MongoDB, Express.js, Rea
 # Features
 
 - User Authentication: Register and login to your account
+- Admin Functionality: Admins can see the number of jobs posted and users listed in the app in the admin panel.
 - Job Management: Post, edit, and delete job listings
 - Profile Management: Upload and update profile pictures
 - Theme Toggle: Switch between dark and light modes
