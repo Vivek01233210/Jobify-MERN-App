@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { HomeLayout, DashboardLayout, Landing, Register, Login, Error, AllJobs, Admin, Stats, AddJob, Profile, EditJob } from './pages/index';
 import { action as registerAction } from './pages/Register.jsx';
@@ -9,7 +9,6 @@ import { loader as dashboardLoader } from './pages/DashboardLayout.jsx';
 import { action as addJobAction } from './pages/AddJob.jsx';
 import { loader as allJobsLoader } from './pages/AllJobs.jsx';
 import { action as editJobAction, loader as editJobLoader } from './pages/EditJob.jsx';
-import { action as deleteJobAction } from './pages/DeleteJob.jsx';
 import { loader as adminLoader } from './pages/Admin.jsx';
 import { action as profileAction } from './pages/Profile.jsx';
 import { loader as statsLoader } from './pages/Stats.jsx';
@@ -79,10 +78,6 @@ const router = createBrowserRouter([
           loader: editJobLoader,
           action: editJobAction
         },
-        {
-          path: 'delete-job/:id',
-          action: deleteJobAction
-        },
         ]
       },
     ]
@@ -93,7 +88,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       queries: {
-        staleTime: 1000 * 10,
+        staleTime: 1000 * 10,  // 10 seconds
       }
     }
   }
@@ -103,7 +98,7 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
       <RouterProvider router={router} />
     </QueryClientProvider>
   )

@@ -1,5 +1,5 @@
 import { FormRow, FormRowSelect } from '.';
-import CSSWrapper from '../assets/wrappers/DashboardFormPage';
+import '../assets/CSS/SearchForm.css'
 import { Form, useSubmit, Link, useNavigation } from 'react-router-dom';
 import { useAllJobsContext } from '../pages/AllJobs.jsx';
 
@@ -26,7 +26,7 @@ export default function SearchContainer() {
   }
 
   return (
-    <CSSWrapper>
+    <section className='search-form'>
       <Form className='form'>
         <h5 className='form-title'>search form</h5>
         <div className='form-center'>
@@ -37,7 +37,6 @@ export default function SearchContainer() {
             name='search'
             defaultValue={search || ''}
             onChange={debounce((form)=>submit(form))}
-            // onChange={(e) => submit(e.currentTarget.form)}
           />
 
           <FormRowSelect
@@ -63,7 +62,7 @@ export default function SearchContainer() {
             onChange={(e) => submit(e.currentTarget.form)}
           />
 
-          <Link to='/dashboard/all-jobs' className='btn form-btn delete-btn'>
+          <Link to='/dashboard' className='form-btn delete-btn'>
             Reset Search Values
           </Link>
           {/* TEMP!!!! */}
@@ -76,6 +75,6 @@ export default function SearchContainer() {
           </button>
         </div>
       </Form>
-    </CSSWrapper>
+    </section>
   );
 }

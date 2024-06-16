@@ -31,6 +31,7 @@ const Wrapper = styled.aside`
     display: flex;
     align-items: center;
     flex-direction: column;
+    overflow-y: auto;
   }
   .close-btn {
     position: absolute;

@@ -1,0 +1,29 @@
+.jobs-container {
+  /* margin-top: 6rem; */
+}
+h2 {
+  text-transform: none;
+}
+.heading-jobs-found {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+.jobs {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  row-gap: 2rem;
+  column-gap: 2rem;
+}
+
+@media (min-width: 900px) {
+  .jobs {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .jobs {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

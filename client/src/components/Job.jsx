@@ -1,9 +1,14 @@
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa';
-import { Link, Form } from 'react-router-dom';
-import CSSWrapper from '../assets/wrappers/Job.js';
+import { Link } from 'react-router-dom';
+import '../assets/CSS/JobItem.css'
+import { FaUserCircle } from "react-icons/fa";
 import JobInfo from './JobInfo';
 import day from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import { useMutation } from '@tanstack/react-query';
+import { customFetch } from '../utils/customFetch.js';
+import { toast } from 'react-toastify';
+import { useDashboardContext } from '../pages/DashboardLayout.jsx';
 day.extend(advancedFormat);
 
 
@@ -14,13 +19,15 @@ export default function Job({
     jobLocation,
     jobType,
     createdAt,
+    createdBy,
     jobStatus,
 }) {
-
     const date = day(createdAt).format('Do MMMM, YYYY');
 
+    const { user } = useDashboardContext();
+
     return (
-        <CSSWrapper>
+        <article>
             <header>
                 <div className='main-icon'>{company.charAt(0)}</div>
                 <div className='info'>
@@ -36,17 +43,14 @@ export default function Job({
                     <div className={`status ${jobStatus}`}>{jobStatus}</div>
                 </div>
 
-                <footer className='actions'>
-                    <Link to={`edit-job/${_id}`} className='btn edit-btn'>
-                        Edit
-                    </Link>
-                    <Form method='post' action={`delete-job/${_id}`}>
-                        <button type='submit' className='btn delete-btn'>
-                            Delete
-                        </button>
-                    </Form>
-                </footer>
             </div>
-        </CSSWrapper>
+            <div className='creator-content'>
+                {createdBy.avatar ? <img src={createdBy.avatar} alt="creator-img" className='creator-img' /> : <FaUserCircle className='creator-icon' />}
+                <div>
+                    <p className='creator-name'>Posted by {createdBy?.name}</p>
+                    <small className='creator-email'>{createdBy?.email}</small>
+                </div>
+            </div>
+        </article>
     )
 }

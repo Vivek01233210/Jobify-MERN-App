@@ -16,7 +16,6 @@ export default function Stats() {
     queryKey: ['get-stats'],
     queryFn: () => customFetch.get('/jobs/stats'),
   });
-  // console.log(data);
 
   if (isLoading) return <h1>Loading...</h1>
   if(isError) return <h1>Error...</h1>

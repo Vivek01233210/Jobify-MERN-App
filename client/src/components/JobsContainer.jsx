@@ -1,4 +1,4 @@
-import CSSWrapper from '../assets/wrappers/JobsContainer.js';
+import '../assets/CSS/JobsContainer.css'
 import { useAllJobsContext } from '../pages/AllJobs.jsx';
 import Job from './Job.jsx';
 import PageBtnContainer from './PageBtnContainer.jsx';
@@ -6,20 +6,21 @@ import PageBtnContainer from './PageBtnContainer.jsx';
 export default function JobsContainer() {
 
   const { data } = useAllJobsContext();
+
   const { jobs, results, numOfPages } = data;
 
   if (jobs.length === 0) {
     return (
-      <CSSWrapper>
+      <section className='jobs-container'>
         <h2>No jobs to display...</h2>
-      </CSSWrapper>
+      </section>
     );
   }
 
 
   return (
-    <CSSWrapper>
-      <h5>
+    <section className='jobs-container'>
+      <h5 className='heading-jobs-found'>
         {results} job{jobs.length > 1 ? 's' : ''} found
       </h5>
       <div className="jobs">
@@ -28,6 +29,6 @@ export default function JobsContainer() {
         ))}
       </div>
       {numOfPages> 1 && <PageBtnContainer/>}
-    </CSSWrapper>
+    </section>
   );
 }

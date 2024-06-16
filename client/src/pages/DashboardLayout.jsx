@@ -1,5 +1,5 @@
 import { Outlet, redirect, useLoaderData, useNavigate, useNavigation } from "react-router-dom"
-import CSSWrapper from '../assets/wrappers/Dashboard';
+import '../assets/CSS/Dashboard.css'
 import { BigSidebar, Navbar, SmallSidebar, Loading } from "../components";
 import { useState, createContext, useContext } from "react";
 import { checkDefaultTheme } from "../App";
@@ -51,7 +51,7 @@ export default function DashboardLayout() {
   return (
     <DashboardContext.Provider value={{ user, showSidebar, isDarkTheme, toggleDarkTheme, toggleSidebar, logoutUser }}
     >
-      <CSSWrapper>
+      <section>
         <main className="dashboard">
           <SmallSidebar />
           <BigSidebar />
@@ -63,7 +63,7 @@ export default function DashboardLayout() {
             </div>
           </div>
         </main>
-      </CSSWrapper>
+      </section>
     </DashboardContext.Provider>
   )
 }

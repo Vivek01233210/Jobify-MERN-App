@@ -7,22 +7,22 @@ import day from 'dayjs';
 //@route  GET /api/v1/jobs
 //@access Private
 export const getAllJobs = async (req, res) => {
-    const {search, jobStatus, jobType, sort,page} = req.query;
+    const { search, jobStatus, jobType, sort, page } = req.query;
 
     const queryObject = {
         // createdBy: req.user.userId,
     }
 
-    if(search){
+    if (search) {
         queryObject.$or = [
-            {company: { $regex: search, $options: 'i' }},
-            {position: { $regex: search, $options: 'i' }},
+            { company: { $regex: search, $options: 'i' } },
+            { position: { $regex: search, $options: 'i' } },
         ]
     }
-    if(jobStatus && jobStatus !== 'all'){
+    if (jobStatus && jobStatus !== 'all') {
         queryObject.jobStatus = jobStatus;
     }
-    if(jobType && jobType !== 'all'){
+    if (jobType && jobType !== 'all') {
         queryObject.jobType = jobType;
     }
     // console.log(queryObject)
@@ -41,12 +41,12 @@ export const getAllJobs = async (req, res) => {
     const limit = process.env.LIMIT_PER_PAGE || 10;
     const skip = (currentPage - 1) * limit;
 
-    const jobs = await Job.find(queryObject).sort(sortKey).skip(skip).limit(limit);
+    const jobs = await Job.find(queryObject).sort(sortKey).skip(skip).limit(limit).populate('createdBy');
 
     const totalJobs = await Job.countDocuments(queryObject);
     const numOfPages = Math.ceil(totalJobs / limit);
 
-    res.status(200).json({ results: totalJobs, numOfPages, currentPage , jobs });
+    res.status(200).json({ results: totalJobs, numOfPages, currentPage, jobs });
 };
 
 //@desc   create a job
@@ -74,6 +74,16 @@ export const getJob = async (req, res) => {
     res.status(200).json({ job });
 };
 
+//@desc get my jobs
+//@route GET /api/v1/jobs/my-jobs
+//@access private
+export const getMyJobs = async (req, res) => {
+    const jobs = await Job.find({ createdBy: req.user.userId });
+    if (!jobs) throw new NotFoundError('Job not found');
+
+    return res.status(200).json({ jobs });
+};
+
 //@desc   update a job
 //@route  PATCH /api/v1/jobs/:id
 //@access Private
@@ -92,7 +102,7 @@ export const updateJob = async (req, res) => {
 
 //@desc delete a job
 //@route DELETE /api/v1/jobs/:id
-//@access public
+//@access private
 export const deleteJob = async (req, res) => {
     const removedJob = await Job.findOneAndDelete({ _id: req.params.id, createdBy: req.user.userId });
     if (!removedJob) throw new NotFoundError('Job not found');

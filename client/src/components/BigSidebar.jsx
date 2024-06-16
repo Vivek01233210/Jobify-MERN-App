@@ -1,15 +1,15 @@
-import CSSWrapper from '../assets/wrappers/BigSidebar'
 import { useDashboardContext } from '../pages/DashboardLayout'
 import Logo from './Logo'
 import NavLinks from './NavLinks'
-
+import '../assets/CSS/BigSidebar.css'
+import { FaTimes } from 'react-icons/fa';
 
 export default function BigSidebar() {
 
-  const { showSidebar } = useDashboardContext();
+  const { showSidebar, toggleSidebar } = useDashboardContext();
 
   return (
-    <CSSWrapper>
+    <div className='big-sidebar'>
       <div
         className={
           showSidebar ? 'sidebar-container ' : 'sidebar-container show-sidebar'
@@ -21,7 +21,8 @@ export default function BigSidebar() {
           </header>
           <NavLinks isBigSidebar={true} />
         </div>
+        {!showSidebar && <FaTimes onClick={toggleSidebar} className='close-btn' />}
       </div>
-    </CSSWrapper>
+    </div>
   )
 }
