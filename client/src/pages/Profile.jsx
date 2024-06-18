@@ -38,10 +38,12 @@ export const action = async ({ request }) => {
 export default function Profile() {
 
   const imageInputRef = useRef(null);
-
+  
   const { user } = useOutletContext();
   const { name, lastName, email, location } = user;
 
+  const [imagePreview, setImagePreview] = useState(user.avatar || null);
+  
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
 
@@ -65,6 +67,19 @@ export default function Profile() {
       .catch((error) => toast.error(error?.response?.data?.message || 'Something went wrong'));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.substr(0, 5) === 'image') {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImagePreview(null);
+    }
+  };
+
   return (
     <>
       <div className='search-form'>
@@ -74,8 +89,8 @@ export default function Profile() {
           <div className='form-center'>
             <div className='form-row image-row'>
               <div className='image-container'>
-                {user.avatar ? (
-                  <img src={user.avatar} alt='profile-pic' className='profile-image' onClick={() => imageInputRef.current.click()} />
+                {(user.avatar || imagePreview) ? (
+                  <img src={imagePreview} alt='profile-pic' className='profile-image' onClick={() => imageInputRef.current.click()} />
                 ) : (
                   <FaUserCircle className='profile-image' onClick={() => imageInputRef.current.click()} />
                 )}
@@ -91,7 +106,7 @@ export default function Profile() {
                 className='form-input'
                 accept='image/*'
                 ref={imageInputRef}
-                
+                onChange={handleImageChange}
                 style={{ display: 'none' }}
               />
             </div>

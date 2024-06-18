@@ -31,12 +31,12 @@ export default function Login() {
         <FormRow
           type='email'
           name='email'
-          defaultValue='vivek@gmail.com'
+          defaultValue=''
         />
         <FormRow
           type='password'
           name='password'
-          defaultValue='test1234'
+          defaultValue=''
         />
         <button type='submit' className='btn btn-block' disabled={isSubmitting}>
           {isSubmitting ? 'Submitting...' : 'Login'}

@@ -1,5 +1,5 @@
 import { FaUserCircle, FaCaretDown, FaCaretUp } from 'react-icons/fa';
-import { IoLogOutOutline  } from "react-icons/io5";
+import { IoLogOutOutline } from "react-icons/io5";
 import { ImProfile } from 'react-icons/im';
 // import CSSWrapper from '../assets/wrappers/LogoutContainer';
 import '../assets/CSS/LogoutContainer.css'
@@ -41,11 +41,9 @@ export default function LogoutContainer() {
                 {showLogout ? <FaCaretUp /> : <FaCaretDown />}
             </button>
             <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
-                <button type='button' className='dropdown-btn' onClick={()=>setShowLogout(false)}>
-                    <Link to="/dashboard/profile">
-                        <ImProfile/>Profile
-                    </Link>
-                </button>
+                <Link to="/dashboard/profile" className='dropdown-btn' onClick={() => setShowLogout(false)}>
+                    <ImProfile />Profile
+                </Link>
                 <button type='button' className='dropdown-btn' onClick={logoutUser}>
                     <IoLogOutOutline className='logout-icon' />logout
                 </button>
