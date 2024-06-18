@@ -25,7 +25,7 @@ export const action = async ({ request, params }) => {
   try {
     await customFetch.patch(`/jobs/${params.id}`, data);
     toast.success('Job updated successfully');
-    return redirect('/dashboard/all-jobs');
+    return redirect('/dashboard/profile');
   } catch (error) {
     toast.error(error?.message?.data?.message || 'Something went wrong');
     return error;

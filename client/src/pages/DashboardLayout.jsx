@@ -49,7 +49,7 @@ export default function DashboardLayout() {
 
   const isLoading = navigation.state === 'loading';
   return (
-    <DashboardContext.Provider value={{ user, showSidebar, isDarkTheme, toggleDarkTheme, toggleSidebar, logoutUser }}
+    <DashboardContext.Provider value={{ user, showSidebar, setShowSidebar, isDarkTheme, toggleDarkTheme, toggleSidebar, logoutUser }}
     >
       <section>
         <main className="dashboard">

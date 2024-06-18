@@ -12,16 +12,16 @@ export default function BigSidebar() {
     <div className='big-sidebar'>
       <div
         className={
-          showSidebar ? 'sidebar-container ' : 'sidebar-container show-sidebar'
+          showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container '
         }
       >
         <div className='content'>
           <header>
             <Logo />
           </header>
-          <NavLinks isBigSidebar={true} />
+          <NavLinks isBigSidebar={false} />
         </div>
-        {!showSidebar && <FaTimes onClick={toggleSidebar} className='close-btn' />}
+        {showSidebar && <FaTimes onClick={toggleSidebar} className='close-btn' />}
       </div>
     </div>
   )

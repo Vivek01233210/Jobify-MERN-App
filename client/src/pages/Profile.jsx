@@ -6,10 +6,12 @@ import { customFetch } from '../utils/customFetch';
 import { toast } from 'react-toastify';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import JobInfo from '../components/JobInfo.jsx';
+import { FaRegEdit } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { FaBriefcase, FaCalendarAlt, FaLocationArrow } from 'react-icons/fa';
-import Job from '../components/Job.jsx';
 import day from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import { useRef, useState } from 'react';
 day.extend(advancedFormat);
 
 export const action = async ({ request }) => {
@@ -34,8 +36,12 @@ export const action = async ({ request }) => {
 
 
 export default function Profile() {
+
+  const imageInputRef = useRef(null);
+
   const { user } = useOutletContext();
   const { name, lastName, email, location } = user;
+
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
 
@@ -44,20 +50,20 @@ export default function Profile() {
     queryFn: () => customFetch.get('/jobs/my-jobs'),
   });
 
-   // delete mutation
-   const deleteMutation = useMutation({
+  // delete mutation
+  const deleteMutation = useMutation({
     mutationKey: ['delete-job'],
     mutationFn: (id) => {
-        return customFetch.delete(`/jobs/${id}`);
+      return customFetch.delete(`/jobs/${id}`);
     },
-});
+  });
 
-const handleDelete = (jobId) => {
+  const handleDelete = (jobId) => {
     deleteMutation.mutateAsync(jobId)
-        .then(() => toast.success('Job deleted successfully'))
-        .then(() => refetch())
-        .catch((error) => toast.error(error?.response?.data?.message || 'Something went wrong'));
-};
+      .then(() => toast.success('Job deleted successfully'))
+      .then(() => refetch())
+      .catch((error) => toast.error(error?.response?.data?.message || 'Something went wrong'));
+  };
 
   return (
     <>
@@ -66,9 +72,17 @@ const handleDelete = (jobId) => {
           <h4 className='form-title'>profile</h4>
 
           <div className='form-center'>
-            <div className='form-row'>
+            <div className='form-row image-row'>
+              <div className='image-container'>
+                {user.avatar ? (
+                  <img src={user.avatar} alt='profile-pic' className='profile-image' onClick={() => imageInputRef.current.click()} />
+                ) : (
+                  <FaUserCircle className='profile-image' onClick={() => imageInputRef.current.click()} />
+                )}
+                <FaRegEdit className='edit-button' onClick={() => imageInputRef.current.click()}/>
+              </div>
               <label htmlFor='image' className='form-label'>
-                Select an image file (max 1 MB):
+                Update Image (max 1 MB):
               </label>
               <input
                 type='file'
@@ -76,6 +90,9 @@ const handleDelete = (jobId) => {
                 name='avatar'
                 className='form-input'
                 accept='image/*'
+                ref={imageInputRef}
+                
+                style={{ display: 'none' }}
               />
             </div>
             <FormRow type='text' name='name' defaultValue={name} />
@@ -124,7 +141,7 @@ const handleDelete = (jobId) => {
                 <Link to={`/dashboard/edit-job/${job._id}`} className='btn'>
                   Edit
                 </Link>
-                <button className='btn' onClick={()=>handleDelete(job._id)}>
+                <button className='btn' onClick={() => handleDelete(job._id)}>
                   Delete
                 </button>
               </footer>
