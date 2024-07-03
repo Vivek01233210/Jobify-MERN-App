@@ -1,7 +1,6 @@
 import { FaUserCircle, FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { IoLogOutOutline } from "react-icons/io5";
 import { ImProfile } from 'react-icons/im';
-// import CSSWrapper from '../assets/wrappers/LogoutContainer';
 import '../assets/CSS/LogoutContainer.css'
 import { useState, useEffect, useRef } from 'react';
 import { useDashboardContext } from '../pages/DashboardLayout';

@@ -1,5 +1,6 @@
 .jobs-container {
-  /* margin-top: 6rem; */
+  display: flex;
+  flex-direction: column;
 }
 h2 {
   text-transform: none;

@@ -1,7 +1,8 @@
 import 'express-async-errors';
 import dotenv from 'dotenv';
 dotenv.config();
-import express from 'express';
+import express, { application } from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import cloudinary from 'cloudinary';
@@ -32,6 +33,14 @@ app.use(express.static(path.resolve(__dirname, './client/dist')));
 
 
 // GLOBAL MIDDLEWARES
+app.use(cors({
+    origin: [process.env.CLIENT_URL_1, process.env.CLIENT_URL_2],
+    credentials: true  // useful during cookie setting
+}));
+// app.use(cors({
+//     origin: ["http://localhost:5173"],
+//     credentials: true  // useful during cookie setting
+// }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -45,7 +54,7 @@ app.use('/api/v1/auth', authRouter);
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
-  });
+});
 
 // NOT FOUND MIDDLEWARE
 app.use('*', (req, res) => {
