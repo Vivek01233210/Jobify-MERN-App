@@ -33,14 +33,31 @@ app.use(express.static(path.resolve(__dirname, './client/dist')));
 
 
 // GLOBAL MIDDLEWARES
-app.use(cors({
-    origin: [process.env.CLIENT_URL_1, process.env.CLIENT_URL_2],
-    credentials: true  // useful during cookie setting
-}));
+// app.use(cors({
+//     origin: [process.env.CLIENT_URL_1, process.env.CLIENT_URL_2],
+//     credentials: true  // useful during cookie setting
+// }));
 // app.use(cors({
 //     origin: ["http://localhost:5173"],
 //     credentials: true  // useful during cookie setting
 // }));
+const corsOptions = {
+    // origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+        // Check if the origin is allowed
+        const allowedOrigins = [
+            "http://localhost:5173",
+            "http://localhost:4173",
+            "http://jobifybyvivek.online",
+            "http://www.jobifybyvivek.online",
+        ];
+        const isAllowed = allowedOrigins.includes(origin);
+        callback(null, isAllowed ? origin : false);
+    },
+    methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+    credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
