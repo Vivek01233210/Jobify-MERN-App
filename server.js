@@ -69,9 +69,9 @@ app.use('/api/v1/jobs', protect, jobRouter);
 app.use('/api/v1/users', protect, userRouter);
 app.use('/api/v1/auth', authRouter);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
+// });
 
 // NOT FOUND MIDDLEWARE
 app.use('*', (req, res) => {
